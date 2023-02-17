@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Button, Grid, Toolbar, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
-import CurrencyModal from "../modal/modal.component";
+import CurrencyModal from "../modal/currency-modal.component";
 
 import { CurrencyButton } from "../currency-button/currency-button.component";
 
@@ -40,7 +40,7 @@ const CurrencyRow = ({ currencyRateItem }) => {
       </Grid>
       {isModalOpen && (
         <CurrencyModal
-          currencyRateItem={currencyRateItem}
+          personalCurrencyRateItem={currencyRateItem}
           method={currencyMethod}
           handleClose={handleCloseModal}
         />

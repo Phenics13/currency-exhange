@@ -1,13 +1,10 @@
-import {
-  CssBaseline,
-  Container,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
 import { useContext } from "react";
+
+import { CssBaseline, Container, Typography } from "@material-ui/core";
 
 import CurrencyTable from "./components/currency-table/currency-table.component";
 import Header from "./components/header/header.component";
+
 import { CurrencyRateContext } from "./context/currency-rate.context";
 
 const App = () => {
@@ -20,7 +17,11 @@ const App = () => {
       <main className="main">
         <Container maxWidth="sm">
           {errorFetching ? (
-            <Typography align="center" variant="h5">
+            <Typography
+              align="center"
+              variant="h5"
+              style={{ marginTop: "5rem" }}
+            >
               {errorFetching.message}
             </Typography>
           ) : (

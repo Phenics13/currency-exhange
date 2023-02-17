@@ -13,15 +13,18 @@ const CurrencyTable = () => {
 
   const counter = JSON.parse(localStorage.getItem("counter")) ?? 1;
 
-  const { currencyRate, setCurrencyRate, setErrorFetching } =
-    useContext(CurrencyRateContext);
+  const {
+    personalCurrencyRate,
+    setCurrencyRate,
+    setErrorFetching,
+  } = useContext(CurrencyRateContext);
 
   useEffect(() => {
     const fetchCurrencyRate = async () => {
       try {
         if (counter >= 4) {
           localStorage.setItem("counter", JSON.stringify(0));
-          throw new Error("You have made 5 requests. I am throwing error!");
+          throw new Error("You have made 5 requests. I am throwing an error!");
         } else {
           localStorage.setItem("counter", JSON.stringify(counter + 1));
         }
@@ -43,7 +46,7 @@ const CurrencyTable = () => {
   return (
     <div className={classes.currencyTable}>
       <CurrencyHeader />
-      {currencyRate.map((currencyRateItem) => (
+      {personalCurrencyRate.map((currencyRateItem) => (
         <CurrencyRow
           currencyRateItem={currencyRateItem}
           key={currencyRateItem.ccy}
