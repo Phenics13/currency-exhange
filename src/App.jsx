@@ -6,6 +6,7 @@ import CurrencyTable from "./components/currency-table/currency-table.component"
 import Header from "./components/header/header.component";
 
 import { CurrencyRateContext } from "./context/currency-rate.context";
+import Calculator from "./components/calculator/calculator.component";
 
 const App = () => {
   const { errorFetching } = useContext(CurrencyRateContext);
@@ -25,7 +26,10 @@ const App = () => {
               {errorFetching.message}
             </Typography>
           ) : (
-            <CurrencyTable />
+            <>
+              <CurrencyTable />
+              <Calculator />
+            </>
           )}
         </Container>
       </main>
