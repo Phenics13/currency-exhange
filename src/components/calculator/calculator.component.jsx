@@ -18,8 +18,7 @@ const Calculator = () => {
 
   const [fromCurrency, setFromCurrency] = useState();
   const [toCurrency, setToCurrency] = useState();
-  console.log("from", fromCurrency);
-  console.log("to", toCurrency);
+
   const [exchangeRate, setExchangeRate] = useState();
 
   const [changeOptions, setChangeOptions] = useState([]);
@@ -38,7 +37,7 @@ const Calculator = () => {
   }
 
   useEffect(() => {
-    if (!personalCurrencyRateArray.length) return;
+    if (!personalCurrencyRateArray.length || fromCurrency || toCurrency) return;
     const initialSelectedCurrency = personalCurrencyRateArray[0];
     const { from, to, rate } = initialSelectedCurrency;
     setFromCurrency(from);
@@ -95,31 +94,33 @@ const Calculator = () => {
 
   return (
     <Toolbar style={{ marginTop: "5rem" }}>
-      <form style={{ display: "flex", gap: "0.75rem" }}>
-        {fromCurrency && changeOptions.length && (
-          <CalculatorRow
-            currencyLabel="Change"
-            currencyOptions={changeOptions}
-            selectedCurrency={fromCurrency}
-            onChangeCurrency={(e) => setFromCurrency(e.target.value)}
-            amount={fromAmount}
-            onChangeAmount={handleFromAmountChange}
-          />
-        )}
-        <Button onClick={handleCurrencySwap}>
-          <SwapHoriz />
-        </Button>
-        {toCurrency && getOptions.length && (
-          <CalculatorRow
-            currencyLabel="Get"
-            currencyOptions={getOptions}
-            selectedCurrency={toCurrency}
-            onChangeCurrency={(e) => setToCurrency(e.target.value)}
-            amount={toAmount}
-            onChangeAmount={handleToAmountChange}
-          />
-        )}
-      </form>
+      {personalCurrencyRateArray.length && (
+        <form style={{ display: "flex", gap: "0.75rem" }}>
+          {fromCurrency && changeOptions.length && (
+            <CalculatorRow
+              currencyLabel="Change"
+              currencyOptions={changeOptions}
+              selectedCurrency={fromCurrency}
+              onChangeCurrency={(e) => setFromCurrency(e.target.value)}
+              amount={fromAmount}
+              onChangeAmount={handleFromAmountChange}
+            />
+          )}
+          <Button onClick={handleCurrencySwap}>
+            <SwapHoriz />
+          </Button>
+          {toCurrency && getOptions.length && (
+            <CalculatorRow
+              currencyLabel="Get"
+              currencyOptions={getOptions}
+              selectedCurrency={toCurrency}
+              onChangeCurrency={(e) => setToCurrency(e.target.value)}
+              amount={toAmount}
+              onChangeAmount={handleToAmountChange}
+            />
+          )}
+        </form>
+      )}
     </Toolbar>
   );
 };
