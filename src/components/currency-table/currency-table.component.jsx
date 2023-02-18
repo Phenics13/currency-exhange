@@ -1,9 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import CurrencyHeader from "../currency-header/currency-header.component";
 import CurrencyRow from "../currency-row/currency-row.component";
 
-import { CURRENCY_EXCHANGE_RATE } from "../../utils/data.utils";
 import { CurrencyRateContext } from "../../context/currency-rate.context";
 
 import { useCurrencyTableStyles } from "./currency-table.styles";
@@ -11,28 +10,7 @@ import { useCurrencyTableStyles } from "./currency-table.styles";
 const CurrencyTable = () => {
   const classes = useCurrencyTableStyles();
 
-  const counter = JSON.parse(localStorage.getItem("counter")) ?? 1;
-
-  const { personalCurrencyRate, setCurrencyRate, setErrorFetching } =
-    useContext(CurrencyRateContext);
-
-  useEffect(() => {
-    counter >= 4
-      ? localStorage.setItem("counter", JSON.stringify(0))
-      : localStorage.setItem("counter", JSON.stringify(counter + 1));
-  }, []);
-
-  useEffect(() => {
-    try {
-      if (counter >= 4) {
-        throw new Error("You have made 5 requests. I am throwing an error!");
-      }
-      const data = CURRENCY_EXCHANGE_RATE;
-      setCurrencyRate(data);
-    } catch (err) {
-      setErrorFetching(err);
-    }
-  }, []);
+  const { personalCurrencyRate } = useContext(CurrencyRateContext);
 
   return (
     <div className={classes.currencyTable}>

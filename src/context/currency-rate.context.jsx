@@ -50,6 +50,7 @@ export const CurrencyRateContext = createContext({
   currencyRate: [],
   personalCurrencyRate: [],
   errorFetching: null,
+  isLoading: false,
 });
 
 const CurrencyRateProvider = ({ children }) => {
@@ -57,6 +58,7 @@ const CurrencyRateProvider = ({ children }) => {
   const [personalCurrencyRate, setPersonalCurrencyRate] =
     useState(currencyRate);
   const [errorFetching, setErrorFetching] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getCurrencyRateItem = (ccy, base_ccy) =>
     getCurrencyItem(currencyRate, ccy, base_ccy);
@@ -92,6 +94,8 @@ const CurrencyRateProvider = ({ children }) => {
     personalCurrencyRateArray,
     errorFetching,
     setErrorFetching,
+    isLoading,
+    setIsLoading,
   };
 
   return (
