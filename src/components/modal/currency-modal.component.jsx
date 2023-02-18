@@ -56,7 +56,7 @@ const CurrencyModal = ({ personalCurrencyRateItem, method, handleClose }) => {
     <Modal open={true} onClose={handleClose}>
       <Box sx={style}>
         <Typography variant="h6" component="h2">
-          {`${methodText} price:`}
+          {`${methodText} ${ccy} price:`}
         </Typography>
         <form style={{ marginTop: "1rem" }}>
           <TextField

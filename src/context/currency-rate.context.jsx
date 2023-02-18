@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 
 const getCurrencyItem = (currencyRate, ccy, base_ccy) => {
   return currencyRate.find(
@@ -24,6 +24,26 @@ const updatePersonalCurrency = (
       return currencyRateItem;
     }
   });
+};
+
+const getPersonalCurrencyArray = (personalCurrencyRate) => {
+  return personalCurrencyRate.reduce((acc, currencyItem) => {
+    const { ccy, base_ccy, buy, sale } = currencyItem;
+    const obj_ccy = {
+      from: ccy,
+      to: base_ccy,
+      rate: buy,
+    };
+
+    const obj_base_ccy = {
+      from: base_ccy,
+      to: ccy,
+      rate: (1 / sale).toString(),
+    };
+
+    acc.push(obj_ccy, obj_base_ccy);
+    return acc;
+  }, []);
 };
 
 export const CurrencyRateContext = createContext({
@@ -55,6 +75,10 @@ const CurrencyRateProvider = ({ children }) => {
     setPersonalCurrencyRate(newPersonalCurrencyRate);
   };
 
+  const personalCurrencyRateArray = useMemo(() => {
+    return getPersonalCurrencyArray(personalCurrencyRate);
+  }, [personalCurrencyRate]);
+
   useEffect(() => {
     setPersonalCurrencyRate(currencyRate);
   }, [currencyRate]);
@@ -65,6 +89,7 @@ const CurrencyRateProvider = ({ children }) => {
     getCurrencyRateItem,
     personalCurrencyRate,
     updatePersonalCurrencyRate,
+    personalCurrencyRateArray,
     errorFetching,
     setErrorFetching,
   };
