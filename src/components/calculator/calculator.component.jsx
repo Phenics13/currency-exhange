@@ -25,16 +25,16 @@ const Calculator = () => {
   const [changeOptions, setChangeOptions] = useState([]);
   const [getOptions, setGetOptions] = useState([]);
 
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState("");
   const [amountInFromCurrency, setAmountInFromCurrency] = useState(true);
 
   let toAmount, fromAmount;
   if (amountInFromCurrency) {
     fromAmount = amount;
-    toAmount = amount * exchangeRate;
+    toAmount = amount ? amount * exchangeRate : "";
   } else {
     toAmount = amount;
-    fromAmount = amount / exchangeRate;
+    fromAmount = amount ? amount / exchangeRate : "";
   }
 
   useEffect(() => {
@@ -54,8 +54,6 @@ const Calculator = () => {
         currencyArrayItem.from === fromCurrency &&
         currencyArrayItem.to === toCurrency
     ).rate;
-    console.log("rate array", personalCurrencyRateArray);
-    console.log("new rate", newExchangeRate);
 
     setExchangeRate(newExchangeRate);
   }, [fromCurrency, toCurrency, personalCurrencyRateArray]);
@@ -68,9 +66,6 @@ const Calculator = () => {
     const newGetOptions = personalCurrencyRateArray
       .filter((currencyArrayItem) => currencyArrayItem.from === fromCurrency)
       .map((filteredCurrencyItem) => filteredCurrencyItem.to);
-
-    console.log("change", newChangeOptions);
-    console.log("get", newGetOptions);
 
     setChangeOptions(newChangeOptions);
     setGetOptions(newGetOptions);
@@ -86,6 +81,18 @@ const Calculator = () => {
     setAmountInFromCurrency(false);
   };
 
+  const handleCurrencySwap = () => {
+    setChangeOptions([]);
+    setGetOptions([]);
+
+    const toCur = toCurrency;
+    const fromCur = fromCurrency;
+    setFromCurrency(toCur);
+    setToCurrency(fromCur);
+    setAmount(toAmount);
+    setAmountInFromCurrency(true);
+  };
+
   return (
     <Toolbar style={{ marginTop: "5rem" }}>
       <form style={{ display: "flex", gap: "0.75rem" }}>
@@ -99,7 +106,7 @@ const Calculator = () => {
             onChangeAmount={handleFromAmountChange}
           />
         )}
-        <Button>
+        <Button onClick={handleCurrencySwap}>
           <SwapHoriz />
         </Button>
         {toCurrency && getOptions.length && (

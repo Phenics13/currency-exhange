@@ -22,6 +22,7 @@ const App = () => {
               align="center"
               variant="h5"
               style={{ marginTop: "5rem" }}
+              color="error"
             >
               {errorFetching.message}
             </Typography>
