@@ -28,7 +28,7 @@ const CurrencyRow = ({ currencyRateItem }) => {
   return (
     <>
       <Grid container alignItems="center">
-        <Grid item xs={4}>
+        <Grid item xs={4} style={{ borderRight: "2px solid black" }}>
           <Typography align="center">{`${ccy}\\${base_ccy}`}</Typography>
         </Grid>
         <Grid item xs={4}>

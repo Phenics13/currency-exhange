@@ -7,7 +7,13 @@ const CurrencyHeader = () => {
   const currentDate = getDate();
 
   return (
-    <Grid container spacing={0} alignItems="center" justifyContent="center">
+    <Grid
+      container
+      spacing={0}
+      alignItems="center"
+      justifyContent="center"
+      style={{ borderBottom: "2px solid black" }}
+    >
       <Grid item xs={4}>
         <Toolbar style={{ flexWrap: "wrap", justifyContent: "center" }}>
           <CalendarToday />

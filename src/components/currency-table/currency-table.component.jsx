@@ -13,34 +13,25 @@ const CurrencyTable = () => {
 
   const counter = JSON.parse(localStorage.getItem("counter")) ?? 1;
 
-  const {
-    personalCurrencyRate,
-    setCurrencyRate,
-    setErrorFetching,
-  } = useContext(CurrencyRateContext);
+  const { personalCurrencyRate, setCurrencyRate, setErrorFetching } =
+    useContext(CurrencyRateContext);
 
   useEffect(() => {
-    const fetchCurrencyRate = async () => {
-      try {
-        if (counter >= 4) {
-          localStorage.setItem("counter", JSON.stringify(0));
-          throw new Error("You have made 5 requests. I am throwing an error!");
-        } else {
-          localStorage.setItem("counter", JSON.stringify(counter + 1));
-        }
+    counter >= 4
+      ? localStorage.setItem("counter", JSON.stringify(0))
+      : localStorage.setItem("counter", JSON.stringify(counter + 1));
+  }, []);
 
-        const data = CURRENCY_EXCHANGE_RATE;
-        setCurrencyRate(data);
-
-        // const data = await getData(
-        //   "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5",
-        // );
-      } catch (err) {
-        setErrorFetching(err);
+  useEffect(() => {
+    try {
+      if (counter >= 4) {
+        throw new Error("You have made 5 requests. I am throwing an error!");
       }
-    };
-
-    fetchCurrencyRate();
+      const data = CURRENCY_EXCHANGE_RATE;
+      setCurrencyRate(data);
+    } catch (err) {
+      setErrorFetching(err);
+    }
   }, []);
 
   return (

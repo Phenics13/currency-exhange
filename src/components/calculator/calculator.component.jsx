@@ -1,12 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
-import {
-  Button,
-  MenuItem,
-  Select,
-  TextField,
-  Toolbar,
-} from "@material-ui/core";
+import { Button, Toolbar } from "@material-ui/core";
 import { SwapHoriz } from "@material-ui/icons";
 
 import { CurrencyRateContext } from "../../context/currency-rate.context";
@@ -43,7 +37,7 @@ const Calculator = () => {
     setFromCurrency(from);
     setToCurrency(to);
     setExchangeRate(rate);
-  }, [personalCurrencyRateArray]);
+  }, [fromCurrency, toCurrency, personalCurrencyRateArray]);
 
   useEffect(() => {
     if (!personalCurrencyRateArray.length || !fromCurrency || !toCurrency)
