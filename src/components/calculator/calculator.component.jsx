@@ -24,10 +24,10 @@ const Calculator = () => {
   let toAmount, fromAmount;
   if (amountInFromCurrency) {
     fromAmount = amount;
-    toAmount = amount ? amount * exchangeRate : "";
+    toAmount = amount ? parseFloat(amount * exchangeRate).toFixed(2) : "";
   } else {
     toAmount = amount;
-    fromAmount = amount ? amount / exchangeRate : "";
+    fromAmount = amount ? parseFloat(amount / exchangeRate).toFixed(2) : "";
   }
 
   useEffect(() => {
@@ -65,12 +65,22 @@ const Calculator = () => {
   }, [fromCurrency, toCurrency, personalCurrencyRateArray]);
 
   const handleFromAmountChange = (event) => {
-    setAmount(event.target.value);
+    const input = event.target.value;
+    const res = input.match(/^\d*\.?[\d]?[\d{1}]?$/g);
+    console.log(res);
+    if (!res) return;
+
+    setAmount(res.join(""));
     setAmountInFromCurrency(true);
   };
 
   const handleToAmountChange = (event) => {
-    setAmount(event.target.value);
+    const input = event.target.value;
+    const res = input.match(/^\d*\.?[\d]?[\d{1}]?$/g);
+    console.log(res);
+    if (!res) return;
+
+    setAmount(res.join(""));
     setAmountInFromCurrency(false);
   };
 

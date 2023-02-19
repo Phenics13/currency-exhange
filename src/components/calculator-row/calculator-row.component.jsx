@@ -13,8 +13,9 @@ const CalculatorRow = ({
       <TextField
         label={currencyLabel}
         value={amount}
-        type="number"
+        type="text"
         onChange={onChangeAmount}
+        placeholder="200.00"
       />
       <Select value={selectedCurrency} onChange={onChangeCurrency}>
         {currencyOptions.map((currencyOption) => (
