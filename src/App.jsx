@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
-import { CssBaseline, Container, Typography } from "@material-ui/core";
+import { CssBaseline, Container, Typography, Box } from "@material-ui/core";
 
 import { CurrencyRateContext } from "./context/currency-rate.context";
 
@@ -8,6 +8,7 @@ import Header from "./components/header/header.component";
 import CurrencyTable from "./components/currency-table/currency-table.component";
 import Calculator from "./components/calculator/calculator.component";
 import Spinner from "./components/spinner/spinner.component";
+import Footer from "./components/footer/footer.component";
 
 const App = () => {
   const {
@@ -29,7 +30,12 @@ const App = () => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      "https://proxy.cors.sh/https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
+      "https://proxy.cors.sh/https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5",
+      {
+        headers: {
+          "x-cors-api-key": "temp_574ea9c8f1a79cbb5aef5272fce0a09c",
+        },
+      }
     )
       .then((response) => response.json())
       .then((data) => {
@@ -46,29 +52,35 @@ const App = () => {
     <>
       <CssBaseline />
       <Header />
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <main className="main">
-          <Container maxWidth="sm">
-            {errorFetching ? (
-              <Typography
-                align="center"
-                variant="h5"
-                style={{ marginTop: "5rem" }}
-                color="error"
-              >
-                {errorFetching.message}
-              </Typography>
-            ) : (
-              <>
-                <CurrencyTable />
-                <Calculator />
-              </>
-            )}
-          </Container>
-        </main>
-      )}
+      <main
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <Box>
+            <Container maxWidth="sm">
+              {errorFetching ? (
+                <Typography align="center" variant="h5" color="error">
+                  {errorFetching.message}
+                </Typography>
+              ) : (
+                <>
+                  <CurrencyTable />
+                  <Calculator />
+                </>
+              )}
+            </Container>
+          </Box>
+        )}
+      </main>
+      <Footer />
     </>
   );
 };

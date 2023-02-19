@@ -2,7 +2,12 @@ import { Box, CircularProgress } from "@material-ui/core";
 
 const Spinner = () => {
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", margin: "10rem 0" }}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <CircularProgress />
     </Box>
   );
