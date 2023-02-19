@@ -9,9 +9,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Done, Close } from "@material-ui/icons";
+
 import { CurrencyRateContext } from "../../context/currency-rate.context";
 
-const isPriceOptimal = (price, newPrice) => {
+export const isPriceOptimal = (price, newPrice) => {
   return Math.abs(price - newPrice) <= price * 0.1;
 };
 

@@ -98,7 +98,7 @@ const Calculator = () => {
 
   return (
     <Toolbar style={{ marginTop: "5rem" }}>
-      {!!personalCurrencyRateArray.length && (
+      {personalCurrencyRateArray && !!personalCurrencyRateArray.length && (
         <form style={{ display: "flex", gap: "0.75rem" }}>
           {fromCurrency && changeOptions.length && (
             <CalculatorRow
